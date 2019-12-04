@@ -62,9 +62,9 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         if self.ROBOT_NAME == "STARO":
             self.setStAbcParametersSTARO()
         elif self.ROBOT_NAME == "JAXON":
-            self.setStAbcIcParametersJAXON(foot="LEPTRINO")
-        elif self.ROBOT_NAME == "JAXON_RED":
             self.setStAbcIcParametersJAXON(foot="KAWADA")
+        elif self.ROBOT_NAME == "JAXON_RED":
+            self.setStAbcIcParametersJAXON(foot="LEPTRINO")
         elif self.ROBOT_NAME == "JAXON_BLUE":
             self.setStAbcIcParametersJAXON_BLUE()
         elif self.ROBOT_NAME == "URATALEG":
@@ -179,15 +179,16 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         abcp=self.abc_svc.getAutoBalancerParam()[1]
         #abcp.default_zmp_offsets=[[0.015, 0.0, 0.0], [0.015, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
-        if self.ROBOT_NAME == "JAXON":
+        if self.ROBOT_NAME == "JAXON_RED":
             abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
-        elif self.ROBOT_NAME == "JAXON_RED":
+        elif self.ROBOT_NAME == "JAXON":
             abcp.default_zmp_offsets=[[0.0, 0.01, 0.0], [0.0, -0.01, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=0.8
         self.abc_svc.setAutoBalancerParam(abcp)
         # kf setting
         kfp=self.kf_svc.getKalmanFilterParam()[1]
         kfp.R_angle=1000
+        kfp.sensorRPY_offset=[math.radians(-0.4), math.radians(0.8), 0]
         self.kf_svc.setKalmanFilterParam(kfp)
         # st setting
         stp=self.st_svc.getParameter()
@@ -201,14 +202,18 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         #stp.eefm_body_attitude_control_gain=[0, 0.5]
         stp.eefm_body_attitude_control_gain=[0.5, 0.5]
         stp.eefm_body_attitude_control_time_const=[1000, 1000]
-        if self.ROBOT_NAME == "JAXON":
-            stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5*1.2*1.65*1.1, 20*1.6*1.1*1.5*1.2*1.65*1.1, 1e5]]*4
-            stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*1.2*1.1]]*4
+        if self.ROBOT_NAME == "JAXON_RED":
+            # stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5*1.2*1.65*1.1, 20*1.6*1.1*1.5*1.2*1.65*1.1, 1e5]]*4
+            # stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*1.2*1.1]]*4
+            # stp.eefm_rot_damping_gain = [[110, 110, 100000]]*4 # vibrate in balance beam demo
+            stp.eefm_rot_damping_gain = [[120, 120, 100000]]*4
+            stp.eefm_pos_damping_gain = [[33600, 33600, 8000]]*4
             stp.eefm_swing_rot_damping_gain=[20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5]
             stp.eefm_swing_pos_damping_gain=[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.4]
             stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30), math.radians(10), math.radians(10)]
             stp.eefm_pos_compensation_limit = [0.06, 0.06, 0.050, 0.050]
-        elif self.ROBOT_NAME == "JAXON_RED":
+        elif self.ROBOT_NAME == "JAXON":
+        # elif self.ROBOT_NAME == "JAXON_RED":
             stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
                                          [20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
                                          [20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5],
@@ -271,6 +276,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.landing_phase_time = 0.1
         stp.landing2support_transition_time = 0.5
         stp.joint_control_mode = OpenHRP.RobotHardwareService.TORQUE
+        # leg_gains = {"support_pgain":[5,30,10,5,0.5,0.1], "support_dgain":[70,70,50,10,1,3], "landing_pgain":[5,30,10,1,0.5,0.1], "landing_dgain":[70,70,50,10,1,3]}
         leg_gains = {"support_pgain":[5,30,10,5,0.15,0.12], "support_dgain":[70,70,50,10,0.1,0.1], "landing_pgain":[5,30,5,1,0.1,0.1], "landing_dgain":[70,70,50,10,0.1,0.1]}
         arm_gains = {"support_pgain":[100,100,100,100,100,100,100,100], "support_dgain":[100,100,100,100,100,100,100,100],
                      "landing_pgain":[100,100,100,100,100,100,100,100], "landing_dgain":[100,100,100,100,100,100,100,100]}

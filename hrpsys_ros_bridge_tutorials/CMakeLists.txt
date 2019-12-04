@@ -368,6 +368,7 @@ compile_rbrain_model_for_closed_robots(JAXON_RED JAXON_RED JAXON_RED
   --conf-file-option "collision_model: convex hull"
   --conf-file-option "# SequencePlayer optional data (contactStates x 4 + controlSwingTime x 4 (4 is rfsensor, lfsensor, rhsensor, lhsensor)"
   --conf-file-option "seq_optional_data_dim: 8"
+  --conf-file-option "virtual_force_sensor2: hipestimation, WAIST, 0.0, 0.0, -0.04, 0.0, 1.0, 0.0, 90.0, 0.205, 0.002, 0.03, 0.03, 0.015, 0.015"
   --simulation-joint-properties-option "RARM_JOINT2.angle,-0.191986,LARM_JOINT2.angle,0.191986"
 )
 gen_minmax_table_for_closed_robots(JAXON_RED JAXON_RED JAXON_RED)
