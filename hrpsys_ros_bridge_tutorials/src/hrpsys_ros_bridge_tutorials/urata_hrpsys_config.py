@@ -179,10 +179,10 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         abcp=self.abc_svc.getAutoBalancerParam()[1]
         #abcp.default_zmp_offsets=[[0.015, 0.0, 0.0], [0.015, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
         # abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
-        abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
+        abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
         if self.ROBOT_NAME == "JAXON_RED":
             # abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0]];
-            abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
+            abcp.default_zmp_offsets=[[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0, 0, 0], [0, 0, 0], [0, 0, 0], [0, 0, 0]];
         elif self.ROBOT_NAME == "JAXON":
             abcp.default_zmp_offsets=[[0.0, 0.01, 0.0], [0.0, -0.01, 0.0], [0, 0, 0], [0, 0, 0]];
         abcp.move_base_gain=0.8
@@ -209,13 +209,15 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
             # stp.eefm_pos_damping_gain = [[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.1*1.5*1.2*1.1]]*4
             # stp.eefm_rot_damping_gain = [[110, 110, 100000]]*4 # vibrate in balance beam demo
             # stp.eefm_rot_damping_gain = [[120, 120, 100000]]*4
-            stp.eefm_rot_damping_gain = [[120, 120, 100000]]*5
+            stp.eefm_rot_damping_gain = [[120, 120, 100000]]*6
             # stp.eefm_pos_damping_gain = [[33600, 33600, 8000]]*4
-            stp.eefm_pos_damping_gain = [[33600, 33600, 8000]]*5
+            stp.eefm_pos_damping_gain = [[33600, 33600, 8000]]*6
             stp.eefm_swing_rot_damping_gain=[20*1.6*1.1*1.5*1.2, 20*1.6*1.1*1.5*1.2, 1e5]
             stp.eefm_swing_pos_damping_gain=[3500*1.6*6, 3500*1.6*6, 3500*1.6*1.4]
-            stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30), math.radians(10), math.radians(10)]
-            stp.eefm_pos_compensation_limit = [0.06, 0.06, 0.050, 0.050, 0.06]
+            # stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30), math.radians(10), math.radians(10)]
+            # stp.eefm_pos_compensation_limit = [0.06, 0.06, 0.050, 0.050]
+            stp.eefm_rot_compensation_limit = [math.radians(30), math.radians(30), math.radians(10), math.radians(10), math.radians(10), math.radians(10)]
+            stp.eefm_pos_compensation_limit = [0.06, 0.06, 0.050, 0.050, 0.06, 0.06]
         elif self.ROBOT_NAME == "JAXON":
         # elif self.ROBOT_NAME == "JAXON_RED":
             stp.eefm_rot_damping_gain = [[20*1.6*1.1*1.5, 20*1.6*1.1*1.5, 1e5],
@@ -239,11 +241,11 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         # stp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3]
         # stp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*4
         # stp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*4
-        stp.eefm_swing_rot_spring_gain=[[1.0, 1.0, 1.0]]*5
-        stp.eefm_swing_pos_spring_gain=[[1.0, 1.0, 1.0]]*5
-        stp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3, [1e4]*3]
-        stp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*5
-        stp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*5
+        stp.eefm_swing_rot_spring_gain=[[1.0, 1.0, 1.0]]*6
+        stp.eefm_swing_pos_spring_gain=[[1.0, 1.0, 1.0]]*6
+        stp.eefm_ee_moment_limit = [[90.0,90.0,1e4], [90.0,90.0,1e4], [1e4]*3, [1e4]*3, [1e4]*3, [1e4]*3]
+        stp.eefm_rot_time_const = [[1.5/1.1, 1.5/1.1, 1.5/1.1]]*6
+        stp.eefm_pos_time_const_support = [[3.0/1.1, 3.0/1.1, 1.5/1.1]]*6
         stp.eefm_wrench_alpha_blending=0.7
         stp.eefm_pos_time_const_swing=0.06
         stp.eefm_pos_transition_time=0.01
@@ -277,7 +279,7 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         rarm_vertices = rleg_vertices
         larm_vertices = lleg_vertices
         # stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices])
-        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices, rleg_vertices])
+        stp.eefm_support_polygon_vertices_sequence = map (lambda x : OpenHRP.StabilizerService.SupportPolygonVertices(vertices=x), [rleg_vertices, lleg_vertices, rarm_vertices, larm_vertices, rleg_vertices, lleg_vertices])
         stp.eefm_cogvel_cutoff_freq = 4.0
         stp.eefm_k1=[-1.48412,-1.48412]
         stp.eefm_k2=[-0.486727,-0.486727]
@@ -292,8 +294,12 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
                      "landing_pgain":[100,100,100,100,100,100,100,100], "landing_dgain":[100,100,100,100,100,100,100,100]}
         hip_gains = {"support_pgain":[100,100,100], "support_dgain":[100,100,100],
                      "landing_pgain":[100,100,100], "landing_dgain":[100,100,100]}
-        stp.joint_servo_control_parameters = map (lambda x : OpenHRP.StabilizerService.JointServoControlParameter(**x), [leg_gains,leg_gains,arm_gains,arm_gains,hip_gains])
-        stp.foot_origin_offset = [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
+        # arm_gains = {"support_pgain":[100,100,100,100,100,100,100,100], "support_dgain":[100,100,100,100,100,100,100,100],
+        #              "landing_pgain":[100,100,100,100,100,100,100,100], "landing_dgain":[100,100,100,100,100,100,100,100]}
+        # hip_gains = {"support_pgain":[100,100,100], "support_dgain":[100,100,100],
+        #              "landing_pgain":[100,100,100], "landing_dgain":[100,100,100]}
+        stp.joint_servo_control_parameters = map (lambda x : OpenHRP.StabilizerService.JointServoControlParameter(**x), [leg_gains,leg_gains,arm_gains,arm_gains,hip_gains,hip_gains])
+        stp.foot_origin_offset = [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0], [0.0, 0.0, 0.0]]
         self.st_svc.setParameter(stp)
         # rh setting
         self.rh_svc.setJointControlMode("all",OpenHRP.RobotHardwareService.TORQUE)
