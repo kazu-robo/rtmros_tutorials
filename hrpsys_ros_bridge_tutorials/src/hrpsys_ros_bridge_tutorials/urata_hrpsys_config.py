@@ -290,10 +290,14 @@ class URATAHrpsysConfigurator(HrpsysConfigurator):
         stp.joint_control_mode = OpenHRP.RobotHardwareService.TORQUE
         # leg_gains = {"support_pgain":[5,30,10,5,0.5,0.1], "support_dgain":[70,70,50,10,1,3], "landing_pgain":[5,30,10,1,0.5,0.1], "landing_dgain":[70,70,50,10,1,3]}
         leg_gains = {"support_pgain":[5,30,10,5,0.15,0.12], "support_dgain":[70,70,50,10,0.1,0.1], "landing_pgain":[5,30,5,1,0.1,0.1], "landing_dgain":[70,70,50,10,0.1,0.1]}
-        arm_gains = {"support_pgain":[100,100,100,100,100,100,100,100], "support_dgain":[100,100,100,100,100,100,100,100],
-                     "landing_pgain":[100,100,100,100,100,100,100,100], "landing_dgain":[100,100,100,100,100,100,100,100]}
-        hip_gains = {"support_pgain":[100,100,100], "support_dgain":[100,100,100],
-                     "landing_pgain":[100,100,100], "landing_dgain":[100,100,100]}
+        # arm_gains = {"support_pgain":[100,10,10,10,10,10,10,10], "support_dgain":[100,10,10,10,10,10,10,10],
+        #              "landing_pgain":[100,10,10,10,10,10,10,10], "landing_dgain":[100,10,10,10,10,10,10,10]}
+        # hip_gains = {"support_pgain":[5,0.15,0.12], "support_dgain":[10,0.1,0.1],
+        #              "landing_pgain":[1,0.1,0.1], "landing_dgain":[10,0.1,0.1]}
+        arm_gains = {"support_pgain":[100,5,5,5,5,5,5,5], "support_dgain":[100,5,5,5,5,5,5,5],
+                     "landing_pgain":[100,5,5,5,5,5,5,5], "landing_dgain":[100,5,5,5,5,5,5,5]}
+        hip_gains = {"support_pgain":[5,30,10], "support_dgain":[70,70,50],
+                     "landing_pgain":[5,30,5], "landing_dgain":[70,70,50]}
         # arm_gains = {"support_pgain":[100,100,100,100,100,100,100,100], "support_dgain":[100,100,100,100,100,100,100,100],
         #              "landing_pgain":[100,100,100,100,100,100,100,100], "landing_dgain":[100,100,100,100,100,100,100,100]}
         # hip_gains = {"support_pgain":[100,100,100], "support_dgain":[100,100,100],
